@@ -62,7 +62,12 @@ public class LevelLoader {
 				level.width = (int)Convert.ToInt32 (reader.Value);
 			}
 
-			reader.ReadToFollowing("Camera");
+            //reader.ReadToFollowing("Simulation");
+            //reader.MoveToAttribute("time");
+            //level.time = (float)Convert.ToDouble(reader.Value);
+            //level.simulated = level.time != 0;
+
+            reader.ReadToFollowing("Camera");
 
 			reader.MoveToAttribute("x");
 			level.camera.x = (float)Convert.ToDouble (reader.Value);
@@ -75,8 +80,8 @@ public class LevelLoader {
 
 			reader.MoveToAttribute("maxWidth");
 			level.camera.maxWidth = (float)Convert.ToDouble (reader.Value);
-				
-			reader.ReadToFollowing("Birds");
+
+            reader.ReadToFollowing("Birds");
 			reader.Read ();
 
 			while (reader.Read ()) {

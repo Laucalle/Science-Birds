@@ -55,10 +55,12 @@ public class ABLevelSelect : ABMenu {
 		// Load levels in the streaming folder
 		string   levelsPath = Application.dataPath + ABConstants.CUSTOM_LEVELS_FOLDER;
 		string[] levelFiles = Directory.GetFiles (levelsPath, "*.xml");
-
+        
 		string[] streamingXml = new string[levelFiles.Length];
 		for (int i = 0; i < levelFiles.Length; i++)
-			streamingXml [i] = File.ReadAllText (levelFiles [i]);
+            streamingXml [i] = File.ReadAllText (levelFiles [i]);
+            
+        
 
 #endif
 
@@ -80,6 +82,7 @@ public class ABLevelSelect : ABMenu {
 
 			GameObject obj = Instantiate (_levelSelector, pos, Quaternion.identity) as GameObject;
 			obj.transform.SetParent(_canvas.transform);
+            obj.transform.position = pos;
 
 			ABLevelSelector sel = obj.AddComponent<ABLevelSelector> ();
 			sel.LevelIndex = i;
