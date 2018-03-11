@@ -92,9 +92,10 @@ public class ABConstants {
 	#else 
 
 	public static readonly float  MOUSE_SENSIBILITY = 0.65f;
-	public static readonly string CUSTOM_LEVELS_FOLDER = "/StreamingAssets/Levels";
+    public static readonly string CUSTOM_LEVELS_FOLDER = "/StreamingAssets/Levels";
+    public static readonly string CUSTOM_OUTPUT_FOLDER = "/StreamingAssets/Output";
 
-	#endif
+#endif
 }
 
 public class ABWorldAssets {

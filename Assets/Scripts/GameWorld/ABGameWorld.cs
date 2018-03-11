@@ -25,109 +25,118 @@ using System.Collections.Generic;
 
 public class ABGameWorld : ABSingleton<ABGameWorld> {
 
-	static int _levelTimesTried;
+    static int _levelTimesTried;
 
-	private bool _levelCleared;
+    private bool _levelCleared;
 
-	private List<ABPig>      _pigs;
-	private List<ABBird>     _birds;
-	private List<ABParticle> _birdTrajectory;
+    private List<ABPig> _pigs;
+    private List<ABBird> _birds;
+    private List<ABParticle> _birdTrajectory;
 
-	private ABBird     _lastThrownBird;
-	private Transform  _blocksTransform;
-	private Transform  _birdsTransform;
-	private Transform  _plaftformsTransform;
-	private Transform  _slingshotBaseTransform;
+    private ABBird _lastThrownBird;
+    private Transform _blocksTransform;
+    private Transform _birdsTransform;
+    private Transform _plaftformsTransform;
+    private Transform _slingshotBaseTransform;
 
-	private GameObject _slingshot;
-	public GameObject Slingshot() { return _slingshot; }
+    private GameObject _slingshot;
+    public GameObject Slingshot() { return _slingshot; }
 
-	private GameObject _levelFailedBanner;
-	public bool LevelFailed() { return _levelFailedBanner.activeSelf; }
+    private GameObject _levelFailedBanner;
+    public bool LevelFailed() { return _levelFailedBanner.activeSelf; }
 
-	private GameObject _levelClearedBanner;
-	public bool LevelCleared() {  return _levelClearedBanner.activeSelf; }
+    private GameObject _levelClearedBanner;
+    public bool LevelCleared() { return _levelClearedBanner.activeSelf; }
 
-	private int _pigsAtStart;
-	public int PigsAtStart {  get { return _pigsAtStart; } }
-	
-	private int _birdsAtStart;
-	public int BirdsAtStart { get { return _birdsAtStart; } }
+    private int _pigsAtStart;
+    public int PigsAtStart { get { return _pigsAtStart; } }
 
-	private int _blocksAtStart;
-	public int BlocksAtStart { get { return _blocksAtStart; } }
+    private int _birdsAtStart;
+    public int BirdsAtStart { get { return _birdsAtStart; } }
 
-	public ABGameplayCamera GameplayCam { get; set; }
-	public float LevelWidth  { get; set; }
-	public float LevelHeight { get; set; }
-		
-	// Game world properties
-	public bool    _isSimulation;
-	public int     _timesToGiveUp;
-	public float   _timeToResetLevel = 1f;
-	public int 	   _birdsAmounInARow = 5;
+    private int _blocksAtStart;
+    public int BlocksAtStart { get { return _blocksAtStart; } }
 
-	public AudioClip  []_clips;
+    public ABGameplayCamera GameplayCam { get; set; }
+    public float LevelWidth { get; set; }
+    public float LevelHeight { get; set; }
 
-	void Awake() {
+    // Game world properties
+    public float _delayInSim = 10f;
+    public bool _isSimulation;
+    public int _timesToGiveUp;
+    public float _timeToResetLevel = 1f;
+    public int _birdsAmounInARow = 5;
 
-		_blocksTransform = GameObject.Find ("Blocks").transform;
-		_birdsTransform  = GameObject.Find ("Birds").transform;
-		_plaftformsTransform = GameObject.Find ("Platforms").transform;
+    public AudioClip[] _clips;
 
-		_levelFailedBanner = GameObject.Find ("LevelFailedBanner").gameObject;
-		_levelFailedBanner.gameObject.SetActive (false);
+    void Awake() {
 
-		_levelClearedBanner = GameObject.Find ("LevelClearedBanner").gameObject;
-		_levelClearedBanner.gameObject.SetActive(false);
+        _blocksTransform = GameObject.Find("Blocks").transform;
+        _birdsTransform = GameObject.Find("Birds").transform;
+        _plaftformsTransform = GameObject.Find("Platforms").transform;
 
-		GameplayCam = GameObject.Find ("Camera").GetComponent<ABGameplayCamera>();
-	}
+        _levelFailedBanner = GameObject.Find("LevelFailedBanner").gameObject;
+        _levelFailedBanner.gameObject.SetActive(false);
 
-	// Use this for initialization
-	void Start () {
-		
-		_pigs = new List<ABPig>();
-		_birds = new List<ABBird>();
-		_birdTrajectory = new List<ABParticle>();
+        _levelClearedBanner = GameObject.Find("LevelClearedBanner").gameObject;
+        _levelClearedBanner.gameObject.SetActive(false);
 
-		_levelCleared = false;
+        GameplayCam = GameObject.Find("Camera").GetComponent<ABGameplayCamera>();
+    }
 
-		if(!_isSimulation) {
+    // Use this for initialization
+    void Start() {
 
-			GetComponent<AudioSource>().PlayOneShot(_clips[0]);
-			GetComponent<AudioSource>().PlayOneShot(_clips[1]);
-		}
+        _pigs = new List<ABPig>();
+        _birds = new List<ABBird>();
+        _birdTrajectory = new List<ABParticle>();
 
-		// If there are objects in the scene, use them to play
-		if (_blocksTransform.childCount > 0 || _birdsTransform.childCount > 0) {
+        _levelCleared = false;
 
-			foreach(Transform bird in _birdsTransform)
-				AddBird (bird.GetComponent<ABBird>());
+        if (!_isSimulation) {
 
-			foreach (Transform block in _blocksTransform) {
+            GetComponent<AudioSource>().PlayOneShot(_clips[0]);
+            GetComponent<AudioSource>().PlayOneShot(_clips[1]);
+        }
 
-				ABPig pig = block.GetComponent<ABPig>();
-				if(pig != null)
-					_pigs.Add(pig);
-			}
+        // If there are objects in the scene, use them to play
+        if (_blocksTransform.childCount > 0 || _birdsTransform.childCount > 0) {
 
-		} 
-		else {
-			
-			ABLevel currentLevel = LevelList.Instance.GetCurrentLevel ();
+            foreach (Transform bird in _birdsTransform)
+                AddBird(bird.GetComponent<ABBird>());
 
-			if (currentLevel != null) {
-				
-				DecodeLevel (currentLevel);
-				AdaptCameraWidthToLevel ();
+            foreach (Transform block in _blocksTransform) {
 
-				_levelTimesTried = 0;
+                ABPig pig = block.GetComponent<ABPig>();
+                if (pig != null)
+                    _pigs.Add(pig);
+            }
 
-				_slingshotBaseTransform = GameObject.Find ("slingshot_base").transform;
-			}
-		}
-	}
+        }
+        else {
+
+            ABLevel currentLevel = LevelList.Instance.GetCurrentLevel();
+
+            if (currentLevel != null) {
+
+                DecodeLevel(currentLevel);
+                AdaptCameraWidthToLevel();
+
+                _levelTimesTried = 0;
+
+                _slingshotBaseTransform = GameObject.Find("slingshot_base").transform;
+            }
+        }
+        if (_isSimulation)
+        {
+            StartCoroutine(SkipSimulationLevel());
+        }
+    }
+    IEnumerator SkipSimulationLevel(){
+        yield return new WaitForSeconds(_delayInSim);
+        NextLevel();
+    }
 
 	public void DecodeLevel(ABLevel currentLevel)  {
 		
@@ -268,6 +277,9 @@ public class ABGameWorld : ABSingleton<ABGameWorld> {
 	}
 
 	public void NextLevel() {
+        if (_isSimulation) {
+            LevelLoader.SaveXmlLevel(LevelList.Instance.GetCurrentLevel(), Application.dataPath + ABConstants.CUSTOM_OUTPUT_FOLDER +"/level-"+ LevelList.Instance.CurrentIndex + ".xml");
+        }
 		
 		if(LevelList.Instance.NextLevel() == null)
 

@@ -109,8 +109,6 @@ public struct SlingData {
 public class ABLevel 
 {
 	public int width;
-    public bool simulated;
-    public float time;
 
 	public CameraData camera;
 	public SlingData slingshot;
@@ -124,8 +122,6 @@ public class ABLevel
 	public static readonly int BIRDS_MAX_AMOUNT = 5;
 
 	public ABLevel() {
-        simulated = false;
-        time = 0;
 		width = 1;
 
 		pigs      = new List<OBjData>();

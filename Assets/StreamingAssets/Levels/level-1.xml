@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Level width="2">
+<Simulation time="0" timeScale="1" enableInput="true"/>
+<Camera x="0" y="0" minWidth="20" maxWidth="25"/>
+<Birds>
+<Bird type="BirdBlack"/>
+<Bird type="BirdWhite"/>
+<Bird type="BirdBlack"/>
+<Bird type="BirdRed"/>
+</Birds>
+<Slingshot x="0" y="0"/>
+<GameObjects>
+<Pig type = "BasicMedium" material = "" x="-0.09865042210349428" y="-1.0813972024986538" rotation="67"/>
+<Block type = "RectBig" material = "wood" x="-0.8778448617002776" y="-0.11129706383516802" rotation="103"/>
+<Block type = "RectFat" material = "wood" x="-1.1946420282244217" y="-0.5824129870821602" rotation="154"/>
+<Block type = "Triangle" material = "ice" x="-1.9875929258326568" y="-1.7485468769249566" rotation="64"/>
+<Block type = "BasicSmall" material = "" x="-1.7124049188637922" y="-1.4892082835773333" rotation="109"/>
+</GameObjects>
+</Level>
