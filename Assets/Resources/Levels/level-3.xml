@@ -7,7 +7,7 @@
   	<Bird type="BirdYellow"/>
   	<Bird type="BirdRed"/>
   </Birds>
-  <Slingshot x="-5" y="-2.5">
+  <Slingshot x="-5" y="-2.5"/>
   <GameObjects>
     <Block type="RectFat" material="wood" x="2.13" y="-3.12" />
     <Block type="RectFat" material="wood" x="2.12" y="-2.68" />

@@ -107,9 +107,10 @@ public class LevelLoader {
 
 			reader.ReadToFollowing("GameObjects");
 			reader.Read ();
-
-			while (reader.Read())
+            int i = 0;
+            while (reader.Read())
 			{
+                
 				string nodeName = reader.LocalName;
 				if (nodeName == "GameObjects")
 					break;
@@ -141,18 +142,22 @@ public class LevelLoader {
 
 					level.blocks.Add (new BlockData (type, rotation, x, y, material));
 					reader.Read ();
-				} 
-				else if (nodeName == "Pig") {
+                    level.blocks[level.blocks.Count - 1].id = i;
+                }
+                else if (nodeName == "Pig") {
 
 					level.pigs.Add (new OBjData (type, rotation, x, y));
 					reader.Read ();
+                    level.pigs[level.pigs.Count - 1].id = i;
 				}
 				else if (nodeName == "TNT") {
 
 					level.tnts.Add (new OBjData (type, rotation, x, y));
 					reader.Read ();
-				}
-				else if (nodeName == "Platform") {
+                    level.tnts[level.tnts.Count - 1].id = i;
+
+                }
+                else if (nodeName == "Platform") {
 
 					float scaleX = 1f;
 					if (reader.GetAttribute ("scaleX") != null) {
@@ -170,8 +175,11 @@ public class LevelLoader {
 
 					level.platforms.Add (new PlatData (type, rotation, x, y, scaleX, scaleY));
 					reader.Read ();
-				}
-			}
+                    level.platforms[level.platforms.Count - 1].id = i;
+
+                }
+                i++;
+            }
 		}
 
 		return level;
@@ -219,6 +227,7 @@ public class LevelLoader {
 				writer.WriteAttributeString("x", abObj.x.ToString());
 				writer.WriteAttributeString("y", abObj.y.ToString());
 				writer.WriteAttributeString("rotation", abObj.rotation.ToString());
+                writer.WriteAttributeString("id", abObj.id.ToString());
 				writer.WriteEndElement();
 			}
 
@@ -229,7 +238,8 @@ public class LevelLoader {
 				writer.WriteAttributeString("x", abObj.x.ToString());
 				writer.WriteAttributeString("y", abObj.y.ToString());
 				writer.WriteAttributeString("rotation", abObj.rotation.ToString());
-				writer.WriteEndElement();
+                writer.WriteAttributeString("id", abObj.id.ToString());
+                writer.WriteEndElement();
 			}
 
 			foreach(OBjData abObj in level.tnts)
@@ -239,7 +249,8 @@ public class LevelLoader {
 				writer.WriteAttributeString("x", abObj.x.ToString());
 				writer.WriteAttributeString("y", abObj.y.ToString());
 				writer.WriteAttributeString("rotation", abObj.rotation.ToString());
-				writer.WriteEndElement();
+                writer.WriteAttributeString("id", abObj.id.ToString());
+                writer.WriteEndElement();
 			}
 
 			foreach(PlatData abObj in level.platforms)
@@ -251,7 +262,7 @@ public class LevelLoader {
 				writer.WriteAttributeString("rotation", abObj.rotation.ToString());
 				writer.WriteAttributeString("scaleX", abObj.scaleX.ToString());
 				writer.WriteAttributeString("scaleY", abObj.scaleY.ToString());
-				writer.WriteEndElement();
+                writer.WriteEndElement();
 			}
 		}
 			

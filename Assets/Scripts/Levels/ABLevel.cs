@@ -26,8 +26,9 @@ public class OBjData {
 	public string type;
 	public float  rotation;
 	public float  x, y;
+    public int id = 0;
 
-	public OBjData () { }
+    public OBjData () { }
 
 	public OBjData(string type, float rotation, float x, float y) {
 

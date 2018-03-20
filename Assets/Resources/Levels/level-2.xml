@@ -7,7 +7,7 @@
   	<Bird type="BirdYellow"/>
   	<Bird type="BirdRed"/>
   </Birds>
-  <Slingshot x="-9" y="-2.5">
+  <Slingshot x="-5" y="-2.5">
   <GameObjects>
     <Pig      type="BasicBig"  x="2"  y="2"  />
     <Platform type="Platform"  x="2"  y="-1" scaleX="5.5" scaleY="8"/>

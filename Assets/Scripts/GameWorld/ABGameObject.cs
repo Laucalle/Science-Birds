@@ -43,7 +43,7 @@ public class ABGameObject : MonoBehaviour
 
 	public float _life = 10f;
 	public float _timeToDie = 1f;
-
+    public int id;
 	public bool IsDying { get; set; }
 
 	protected virtual void Awake() {

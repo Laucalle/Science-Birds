@@ -198,8 +198,9 @@ public class ABGameWorld : ABSingleton<ABGameWorld> {
 
 			Vector2 pos = new Vector2 (gameObj.x, gameObj.y);
 			Quaternion rotation = Quaternion.Euler (0, 0, gameObj.rotation);
-			AddPig(ABWorldAssets.PIGS[gameObj.type], pos, rotation);
-		}
+            GameObject pig = AddPig(ABWorldAssets.PIGS[gameObj.type], pos, rotation);
+            pig.GetComponent<ABPig>().id = gameObj.id;
+        }
 
 		foreach(BlockData gameObj in currentLevel.blocks) {
 
@@ -210,7 +211,9 @@ public class ABGameWorld : ABSingleton<ABGameWorld> {
 
 			MATERIALS material = (MATERIALS)System.Enum.Parse(typeof(MATERIALS), gameObj.material);
 			block.GetComponent<ABBlock> ().SetMaterial (material);
-		}
+            block.GetComponent<ABBlock>().id = gameObj.id;
+
+        }
 
 		foreach(PlatData gameObj in currentLevel.platforms) {
 			
@@ -218,15 +221,17 @@ public class ABGameWorld : ABSingleton<ABGameWorld> {
 			Quaternion rotation = Quaternion.Euler (0, 0, gameObj.rotation);
 
 			AddPlatform(ABWorldAssets.PLATFORM, pos, rotation, gameObj.scaleX, gameObj.scaleY);
-		}
+            
+        }
 
 		foreach(OBjData gameObj in currentLevel.tnts) {
 
 			Vector2 pos = new Vector2 (gameObj.x, gameObj.y);
 			Quaternion rotation = Quaternion.Euler (0, 0, gameObj.rotation);
 
-			AddBlock(ABWorldAssets.TNT, pos, rotation);
-		}
+            GameObject tnt = AddBlock(ABWorldAssets.TNT, pos, rotation);
+            tnt.GetComponent<ABTNT>().id = gameObj.id;
+        }
 		
 		StartWorld();
 	}
@@ -548,7 +553,6 @@ public class ABGameWorld : ABSingleton<ABGameWorld> {
 	}
 
 	public bool IsSlingshotBaseActive() {
-
 		return _slingshotBaseTransform.gameObject.activeSelf;
 	}
 

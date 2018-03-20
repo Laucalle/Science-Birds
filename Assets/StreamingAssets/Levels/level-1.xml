@@ -8,7 +8,7 @@
 <Bird type="BirdBlack"/>
 <Bird type="BirdRed"/>
 </Birds>
-<Slingshot x="0" y="0"/>
+  <Slingshot x="-5" y="-2.5" />
 <GameObjects>
 <Pig type = "BasicMedium" material = "" x="-0.09865042210349428" y="-1.0813972024986538" rotation="67"/>
 <Block type = "RectBig" material = "wood" x="-0.8778448617002776" y="-0.11129706383516802" rotation="103"/>
