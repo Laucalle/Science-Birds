@@ -21,7 +21,7 @@
 using System.Collections;
 
 public class ABPig : ABCharacter {
-    public int id = 0;
+    //public int id = 0;
 	public override void Die(bool withEffect = true)
 	{
 		ScoreHud.Instance.SpawnScorePoint(50, transform.position);

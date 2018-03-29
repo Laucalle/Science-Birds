@@ -187,8 +187,10 @@ public class LevelLoader {
 
 	public static void SaveXmlLevel(ABLevel level, string path) {
 
-		StringBuilder output = new StringBuilder();
-		XmlWriterSettings ws = new XmlWriterSettings();
+        //StringBuilder output = new StringBuilder();
+        MemoryStream output = new MemoryStream();
+        XmlWriterSettings ws = new XmlWriterSettings();
+        ws.Encoding = new UTF8Encoding(false);
 		ws.Indent = true;
 
 		using (XmlWriter writer = XmlWriter.Create(output, ws))
@@ -266,8 +268,8 @@ public class LevelLoader {
 			}
 		}
 			
-		StreamWriter streamWriter = new StreamWriter(path);
-		streamWriter.WriteLine(output.ToString());
+		StreamWriter streamWriter = new StreamWriter(path, false, Encoding.UTF8);
+		streamWriter.WriteLine(Encoding.Default.GetString(output.ToArray()));
 		streamWriter.Close();
 	}
 		

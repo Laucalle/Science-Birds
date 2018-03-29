@@ -190,21 +190,24 @@ public class ABGameWorld : ABSingleton<ABGameWorld> {
 		_slingshot.transform.parent = transform;
 
 		foreach(BirdData gameObj in currentLevel.birds){
+            Debug.Log("Pajaro: "+gameObj.type);
 
 			AddBird(ABWorldAssets.BIRDS[gameObj.type], ABWorldAssets.BIRDS[gameObj.type].transform.rotation);
 		}
 
 		foreach (OBjData gameObj in currentLevel.pigs) {
+            Debug.Log("Cerdo: "+gameObj.type);
 
-			Vector2 pos = new Vector2 (gameObj.x, gameObj.y);
+            Vector2 pos = new Vector2 (gameObj.x, gameObj.y);
 			Quaternion rotation = Quaternion.Euler (0, 0, gameObj.rotation);
             GameObject pig = AddPig(ABWorldAssets.PIGS[gameObj.type], pos, rotation);
             pig.GetComponent<ABPig>().id = gameObj.id;
         }
 
 		foreach(BlockData gameObj in currentLevel.blocks) {
+            Debug.Log("Bloque: "+gameObj.type);
 
-			Vector2 pos = new Vector2 (gameObj.x, gameObj.y);
+            Vector2 pos = new Vector2 (gameObj.x, gameObj.y);
 			Quaternion rotation = Quaternion.Euler (0, 0, gameObj.rotation);
 
 			GameObject block = AddBlock(ABWorldAssets.BLOCKS[gameObj.type], pos,  rotation);
@@ -216,8 +219,9 @@ public class ABGameWorld : ABSingleton<ABGameWorld> {
         }
 
 		foreach(PlatData gameObj in currentLevel.platforms) {
-			
-			Vector2 pos = new Vector2 (gameObj.x, gameObj.y);
+            Debug.Log("Plataforma:" +gameObj.type);
+
+            Vector2 pos = new Vector2 (gameObj.x, gameObj.y);
 			Quaternion rotation = Quaternion.Euler (0, 0, gameObj.rotation);
 
 			AddPlatform(ABWorldAssets.PLATFORM, pos, rotation, gameObj.scaleX, gameObj.scaleY);
@@ -225,8 +229,9 @@ public class ABGameWorld : ABSingleton<ABGameWorld> {
         }
 
 		foreach(OBjData gameObj in currentLevel.tnts) {
+            Debug.Log("TNT: "+gameObj.type);
 
-			Vector2 pos = new Vector2 (gameObj.x, gameObj.y);
+            Vector2 pos = new Vector2 (gameObj.x, gameObj.y);
 			Quaternion rotation = Quaternion.Euler (0, 0, gameObj.rotation);
 
             GameObject tnt = AddBlock(ABWorldAssets.TNT, pos, rotation);
