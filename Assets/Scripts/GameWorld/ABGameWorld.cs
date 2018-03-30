@@ -190,13 +190,11 @@ public class ABGameWorld : ABSingleton<ABGameWorld> {
 		_slingshot.transform.parent = transform;
 
 		foreach(BirdData gameObj in currentLevel.birds){
-            Debug.Log("Pajaro: "+gameObj.type);
 
 			AddBird(ABWorldAssets.BIRDS[gameObj.type], ABWorldAssets.BIRDS[gameObj.type].transform.rotation);
 		}
 
 		foreach (OBjData gameObj in currentLevel.pigs) {
-            Debug.Log("Cerdo: "+gameObj.type);
 
             Vector2 pos = new Vector2 (gameObj.x, gameObj.y);
 			Quaternion rotation = Quaternion.Euler (0, 0, gameObj.rotation);
@@ -205,7 +203,6 @@ public class ABGameWorld : ABSingleton<ABGameWorld> {
         }
 
 		foreach(BlockData gameObj in currentLevel.blocks) {
-            Debug.Log("Bloque: "+gameObj.type);
 
             Vector2 pos = new Vector2 (gameObj.x, gameObj.y);
 			Quaternion rotation = Quaternion.Euler (0, 0, gameObj.rotation);
@@ -219,7 +216,6 @@ public class ABGameWorld : ABSingleton<ABGameWorld> {
         }
 
 		foreach(PlatData gameObj in currentLevel.platforms) {
-            Debug.Log("Plataforma:" +gameObj.type);
 
             Vector2 pos = new Vector2 (gameObj.x, gameObj.y);
 			Quaternion rotation = Quaternion.Euler (0, 0, gameObj.rotation);
@@ -229,7 +225,6 @@ public class ABGameWorld : ABSingleton<ABGameWorld> {
         }
 
 		foreach(OBjData gameObj in currentLevel.tnts) {
-            Debug.Log("TNT: "+gameObj.type);
 
             Vector2 pos = new Vector2 (gameObj.x, gameObj.y);
 			Quaternion rotation = Quaternion.Euler (0, 0, gameObj.rotation);
@@ -246,6 +241,8 @@ public class ABGameWorld : ABSingleton<ABGameWorld> {
 		
 		// Check if birds was trown, if it died and swap them when needed
 		ManageBirds();
+        UpdateAverageMagnitudeVelocity();
+        if (IsLevelStable()) { NextLevel(); }
 	}
 	
 	public bool IsObjectOutOfWorld(Transform abGameObject, Collider2D abCollider) {
@@ -286,8 +283,64 @@ public class ABGameWorld : ABSingleton<ABGameWorld> {
 		return null;
 	}
 
+    public void UpdateActiveLevelInfo() {
+        ABLevel currentLevel = LevelList.Instance.GetCurrentLevel();
+        bool found = false;
+        List<BlockData> toRemove = new List<BlockData>();
+        
+        for (int i =0; i< currentLevel.blocks.Count; i++) {
+
+            foreach (Transform t in _blocksTransform)
+            {
+                Rigidbody2D[] bodies = t.GetComponentsInChildren<Rigidbody2D>();
+                foreach (Rigidbody2D body in bodies)
+                {
+                    if (body.GetComponent<ABGameObject>().id == currentLevel.blocks[i].id)
+                    {
+                        currentLevel.blocks[i].averageVel = body.GetComponent<ABGameObject>()._averageMagnitudeVelocity;
+                        found = true;
+                    }
+                }
+            }
+
+            if (!found)
+            {
+                toRemove.Add(currentLevel.blocks[i]);
+            }
+
+            found = false;
+        }
+
+        for (int i = 0; i < toRemove.Count; i++) {
+            currentLevel.blocks.Remove(toRemove[i]);
+        }
+
+        List<OBjData> pigsRemoved = new List<OBjData>();
+        for (int i = 0; i<currentLevel.pigs.Count; i++) 
+        {
+            foreach (ABPig pig in _pigs) {
+                if (pig.id == currentLevel.pigs[i].id)
+                {
+                    currentLevel.pigs[i].averageVel = pig._averageMagnitudeVelocity;
+                    found = true;
+                }   
+            }
+            if (!found) {
+                pigsRemoved.Add(currentLevel.pigs[i]);
+            }
+            found = false;
+        }
+
+        for (int i = 0; i < pigsRemoved.Count; i++)
+        {
+            currentLevel.pigs.Remove(pigsRemoved[i]);
+        }
+
+    }
+
 	public void NextLevel() {
         if (_isSimulation) {
+            UpdateActiveLevelInfo();
             LevelLoader.SaveXmlLevel(LevelList.Instance.GetCurrentLevel(), Application.dataPath + ABConstants.CUSTOM_OUTPUT_FOLDER +"/level-"+ LevelList.Instance.CurrentIndex + ".xml");
         }
 		
@@ -526,7 +579,25 @@ public class ABGameWorld : ABSingleton<ABGameWorld> {
 		return totalVelocity;
 	}
 
-	public List<GameObject> BlocksInScene() {
+    public void UpdateAverageMagnitudeVelocity()
+    {
+
+        foreach (Transform b in _blocksTransform)
+        {
+
+            Rigidbody2D[] bodies = b.GetComponentsInChildren<Rigidbody2D>();
+
+            foreach (Rigidbody2D body in bodies)
+            {
+                Debug.Log(body.GetComponent<ABGameObject>().name);
+                if (!IsObjectOutOfWorld(body.transform, body.GetComponent<Collider2D>()))
+                   body.GetComponent<ABGameObject>()._averageMagnitudeVelocity += body.velocity.magnitude;
+            }
+        }
+
+    }
+
+    public List<GameObject> BlocksInScene() {
 
 		List<GameObject> objsInScene = new List<GameObject>();
 

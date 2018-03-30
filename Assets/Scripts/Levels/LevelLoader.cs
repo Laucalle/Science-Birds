@@ -230,7 +230,9 @@ public class LevelLoader {
 				writer.WriteAttributeString("y", abObj.y.ToString());
 				writer.WriteAttributeString("rotation", abObj.rotation.ToString());
                 writer.WriteAttributeString("id", abObj.id.ToString());
-				writer.WriteEndElement();
+                writer.WriteAttributeString("aVelocity", abObj.averageVel.ToString());
+
+                writer.WriteEndElement();
 			}
 
 			foreach(OBjData abObj in level.pigs)
@@ -241,6 +243,8 @@ public class LevelLoader {
 				writer.WriteAttributeString("y", abObj.y.ToString());
 				writer.WriteAttributeString("rotation", abObj.rotation.ToString());
                 writer.WriteAttributeString("id", abObj.id.ToString());
+                writer.WriteAttributeString("aVelocity", abObj.averageVel.ToString());
+
                 writer.WriteEndElement();
 			}
 
@@ -252,6 +256,8 @@ public class LevelLoader {
 				writer.WriteAttributeString("y", abObj.y.ToString());
 				writer.WriteAttributeString("rotation", abObj.rotation.ToString());
                 writer.WriteAttributeString("id", abObj.id.ToString());
+                writer.WriteAttributeString("aVelocity", abObj.averageVel.ToString());
+
                 writer.WriteEndElement();
 			}
 

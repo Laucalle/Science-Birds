@@ -27,6 +27,7 @@ public class OBjData {
 	public float  rotation;
 	public float  x, y;
     public int id = 0;
+    public float averageVel = 0f;
 
     public OBjData () { }
 
