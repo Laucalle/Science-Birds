@@ -589,7 +589,6 @@ public class ABGameWorld : ABSingleton<ABGameWorld> {
 
             foreach (Rigidbody2D body in bodies)
             {
-                Debug.Log(body.GetComponent<ABGameObject>().name);
                 if (!IsObjectOutOfWorld(body.transform, body.GetComponent<Collider2D>()))
                    body.GetComponent<ABGameObject>()._averageMagnitudeVelocity += body.velocity.magnitude;
             }

@@ -19,10 +19,19 @@
 
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class ABMenu : MonoBehaviour {
 
-	public void LoadNextScene(string sceneName) {
+    public void Start()
+    {
+        GameObject startButton = GameObject.Find("PlayButton");
+        if (startButton != null)
+        {
+            startButton.GetComponent<Button>().onClick.Invoke();
+        }
+    }
+    public void LoadNextScene(string sceneName) {
 
 		ABSceneManager.Instance.LoadScene(sceneName);
 	}

@@ -75,7 +75,7 @@ public class ABLevelSelect : ABMenu {
 		LevelList.Instance.LoadLevelsFromSource (allXmlFiles);
 
 		int j = 0;
-
+        Button[] levelButtons = new Button[allXmlFiles.Length];
 		for(int i = 0; i < allXmlFiles.Length; i++) {
 
 			Vector2 pos = _startPos + new Vector2 ((i % _lines) * _buttonSize.x, j * _buttonSize.y);
@@ -88,7 +88,7 @@ public class ABLevelSelect : ABMenu {
 			sel.LevelIndex = i;
 
 			Button selectButton = obj.GetComponent<Button> ();
-
+            levelButtons[i] = selectButton;
 			selectButton.onClick.AddListener (delegate { 
 				LoadNextScene("GameWorld", true, sel.UpdateLevelList); });
 
@@ -98,5 +98,7 @@ public class ABLevelSelect : ABMenu {
 			if ((i + 1) % _lines == 0)
 				j--;
 		}
+
+        levelButtons[0].onClick.Invoke();
 	}
 }
