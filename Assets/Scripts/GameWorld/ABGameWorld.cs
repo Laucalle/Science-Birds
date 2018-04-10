@@ -343,12 +343,12 @@ public class ABGameWorld : ABSingleton<ABGameWorld> {
             UpdateActiveLevelInfo();
             LevelLoader.SaveXmlLevel(LevelList.Instance.GetCurrentLevel(), Application.dataPath + ABConstants.CUSTOM_OUTPUT_FOLDER +"/level-"+ LevelList.Instance.CurrentIndex + ".xml");
         }
-		
-		if(LevelList.Instance.NextLevel() == null)
 
-			ABSceneManager.Instance.LoadScene("MainMenu");
-		else
-			ABSceneManager.Instance.LoadScene(SceneManager.GetActiveScene().name);
+        if (LevelList.Instance.NextLevel() == null)
+            Application.Quit();
+        //ABSceneManager.Instance.LoadScene("MainMenu");
+        else
+            ABSceneManager.Instance.LoadScene(SceneManager.GetActiveScene().name);
 	}
 
 	public void ResetLevel() {
