@@ -344,10 +344,12 @@ public class ABGameWorld : ABSingleton<ABGameWorld> {
             LevelLoader.SaveXmlLevel(LevelList.Instance.GetCurrentLevel(), Application.dataPath + ABConstants.CUSTOM_OUTPUT_FOLDER +"/level-"+ LevelList.Instance.CurrentIndex + ".xml");
         }
 
-        if (LevelList.Instance.NextLevel() == null)
-            Application.Quit();
         //ABSceneManager.Instance.LoadScene("MainMenu");
-        else
+        if (LevelList.Instance.NextLevel() == null)
+        {
+            Debug.Log("Quitting App");
+            Application.Quit();
+        } else
             ABSceneManager.Instance.LoadScene(SceneManager.GetActiveScene().name);
 	}
 

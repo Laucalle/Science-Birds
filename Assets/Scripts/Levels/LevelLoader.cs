@@ -213,8 +213,9 @@ public class LevelLoader {
 				writer.WriteAttributeString("type", abBird.type.ToString());
 				writer.WriteEndElement();
 			}
+			writer.WriteEndElement();
 
-			writer.WriteStartElement("Slingshot");
+            writer.WriteStartElement("Slingshot");
 			writer.WriteAttributeString("x", level.slingshot.x.ToString());
 			writer.WriteAttributeString("y", level.slingshot.y.ToString());
 			writer.WriteEndElement();
