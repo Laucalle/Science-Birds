@@ -241,11 +241,16 @@ public class ABGameWorld : ABSingleton<ABGameWorld> {
 		
 		// Check if birds was trown, if it died and swap them when needed
 		ManageBirds();
+        
+	}
+    
+    void LateUpdate()
+    {
         UpdateAverageMagnitudeVelocity();
         if (IsLevelStable()) { NextLevel(); }
-	}
-	
-	public bool IsObjectOutOfWorld(Transform abGameObject, Collider2D abCollider) {
+    }
+
+    public bool IsObjectOutOfWorld(Transform abGameObject, Collider2D abCollider) {
 		
 		Vector2 halfSize = abCollider.bounds.size/2f;
 	
@@ -592,7 +597,7 @@ public class ABGameWorld : ABSingleton<ABGameWorld> {
             foreach (Rigidbody2D body in bodies)
             {
                 if (!IsObjectOutOfWorld(body.transform, body.GetComponent<Collider2D>()))
-                   body.GetComponent<ABGameObject>()._averageMagnitudeVelocity += body.velocity.magnitude;
+                    body.GetComponent<ABGameObject>()._averageMagnitudeVelocity += body.velocity.magnitude;
             }
         }
 

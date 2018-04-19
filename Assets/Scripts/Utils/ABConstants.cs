@@ -79,19 +79,20 @@ public class ABConstants {
 
 	public static readonly string DEFAULT_LEVELS_FOLDER = "Levels";
 
-	#if UNITY_STANDALONE_OSX && !UNITY_EDITOR
+#if UNITY_STANDALONE_OSX && !UNITY_EDITOR
 
 	public static readonly float MOUSE_SENSIBILITY = 5f;
 	public static readonly string CUSTOM_LEVELS_FOLDER = "/Resources/Data/StreamingAssets/Levels";
 
-	#elif UNITY_STANDALONE_WIN && !UNITY_EDITOR
+#elif UNITY_STANDALONE_WIN && !UNITY_EDITOR
 
 	public static readonly float MOUSE_SENSIBILITY = 25f;
 	public static readonly string CUSTOM_LEVELS_FOLDER = "/StreamingAssets/Levels";
+    public static readonly string CUSTOM_OUTPUT_FOLDER = "/StreamingAssets/Output";
 
-	#else 
+#else
 
-	public static readonly float  MOUSE_SENSIBILITY = 0.65f;
+    public static readonly float  MOUSE_SENSIBILITY = 0.65f;
     public static readonly string CUSTOM_LEVELS_FOLDER = "/StreamingAssets/Levels";
     public static readonly string CUSTOM_OUTPUT_FOLDER = "/StreamingAssets/Output";
 

@@ -2,13 +2,25 @@
 <Level width="2">
   <Camera x="0" y="0" minWidth="20" maxWidth="25" />
   <Birds>
+    <Bird type="BirdRed" />
     <Bird type="BirdBlack" />
     <Bird type="BirdWhite" />
-    <Bird type="BirdBlack" />
-    <Bird type="BirdRed" />
   </Birds>
   <Slingshot x="-5" y="-2.5" />
   <GameObjects>
-    <Block type="RectBig" material="wood" x="-0.8778449" y="-0.1112971" rotation="103" id="1" aVelocity="228.4877" />
+    <Block type="RectFat" material="wood" x="-1.66367" y="18.76507" rotation="45" id="1" aVelocity="1102.8" />
+    <Block type="RectFat" material="wood" x="-1.66367" y="18.76507" rotation="45" id="4" aVelocity="1114.234" />
+    <Block type="RectSmall" material="wood" x="0.71141" y="19.08547" rotation="45" id="12" aVelocity="1136.696" />
+    <Block type="RectSmall" material="wood" x="0.71141" y="19.08547" rotation="45" id="19" aVelocity="1140.801" />
+    <Block type="RectFat" material="wood" x="4.081631" y="7.242218" rotation="0" id="22" aVelocity="474.3204" />
+    <Block type="RectSmall" material="wood" x="0.71141" y="19.08547" rotation="45" id="24" aVelocity="1152.57" />
+    <Block type="RectFat" material="wood" x="4.081631" y="7.242218" rotation="0" id="26" aVelocity="474.4722" />
+    <Block type="RectFat" material="wood" x="4.081631" y="7.242218" rotation="0" id="34" aVelocity="474.6926" />
+    <Block type="RectFat" material="wood" x="4.081631" y="7.242218" rotation="0" id="39" aVelocity="474.9567" />
+    <Block type="RectTiny" material="wood" x="3.011081" y="18.28736" rotation="135" id="42" aVelocity="1078.004" />
+    <Block type="RectMedium" material="wood" x="9.829295" y="19.88906" rotation="90" id="52" aVelocity="1174.3" />
+    <Block type="RectFat" material="wood" x="-1.66367" y="18.76507" rotation="45" id="54" aVelocity="1129.462" />
+    <Block type="RectMedium" material="wood" x="9.829295" y="19.88906" rotation="90" id="55" aVelocity="1181.434" />
+    <Block type="RectFat" material="wood" x="4.081631" y="7.242218" rotation="0" id="56" aVelocity="475.243" />
   </GameObjects>
 </Level>
